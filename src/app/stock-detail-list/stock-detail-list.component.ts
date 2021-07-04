@@ -7,7 +7,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class StockDetailListComponent implements OnInit {
 
-  constructor() { }
+
+  stockData = [];
+  constructor() {
+    this.stockData.push({ticker: 'HPC', name: 'HP', valueSek: 125});
+    this.stockData.push({ticker: 'KIND.ST', name: 'Kindred', valueSek: 192});
+  }
 
   ngOnInit() {
   }

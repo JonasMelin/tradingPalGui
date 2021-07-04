@@ -1,2 +1,9 @@
-<app-stock-details name="Kindred" ticker="KIND.ST"></app-stock-details>
-<app-stock-details name="HP" ticker="HPC"></app-stock-details>
+
+<p *ngFor="let stock of stockData">
+  <app-stock-details
+    name={{stock.name}}
+    ticker={{stock.ticker}}
+    valueSek={{stock.valueSek}}>
+  </app-stock-details>
+</p>
+

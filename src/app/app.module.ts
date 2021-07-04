@@ -9,7 +9,7 @@ import { StockDetailListComponent } from './stock-detail-list/stock-detail-list.
   declarations: [
     AppComponent,
     StockDetailsComponent,
-    StockDetailListComponent
+    StockDetailListComponent,
   ],
   imports: [
     BrowserModule

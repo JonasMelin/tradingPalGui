@@ -14,5 +14,4 @@ export class StockDetailsComponent implements OnInit {
 
   ngOnInit() {
   }
-
 }

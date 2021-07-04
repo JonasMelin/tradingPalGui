@@ -1,8 +1,24 @@
 <div>
-  <p>
-    Name   : {{ name }} <br>
-    Ticker : {{ ticker }}<br>
-    Value  : {{ valueSek }} (SEK)<br>
-  </p>
   <hr>
+    <font size="+1">
+      <b>{{ name }} / {{ tickerName }}</b><br><br>
+    </font>
+
+  <b *ngIf="numberToSell">number to sell: {{ numberToSell }} <font size = "-2">({{sellValueSek}} (SEK))</font><br></b>
+  <b *ngIf="numberToBuy">number to buy: {{ numberToBuy }} <font size = "-2">({{buyValueSek}} (SEK))</font><br></b>
+    Current value: {{currentValueSek}} (SEK)<br>
+
+    <br>
+    <font size = "-1">
+      <i>price per share: {{ singleStockPriceSek }} (SEK)<br></i>
+      <i *ngIf="currancy != 'SEK'">price per share: {{ priceOrigCurrancy }} ({{ currancy }}) <br></i>
+      <i>Current count : {{ currentCount }} <br></i>
+      <i>Total invested : {{ totalInvestedSek }} (SEK) <br></i>
+      <i *ngIf="boughtAt">Bought at: {{ boughtAt }} ({{ currancy }})<br></i>
+      <i *ngIf="soldAt">Sold at: {{ soldAt }} ({{ currancy }})<br></i>
+      <i>locked: {{ tickerIsLocked }} <br></i>
+    </font>
+
+
+
 </div>

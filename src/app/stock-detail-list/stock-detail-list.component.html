@@ -1,9 +1,26 @@
 
-<p *ngFor="let stock of stockData">
+<p>
+  updated       : {{stocksToTrade.updatedUtc}} (UTC) <br>
+  successCounter: {{stocksToTrade.successCounter}} <br>
+  failCounter:    {{stocksToTrade.failCounter}} <br>
+  Total value   : {{stocksToTrade.totalGlobalValueSek}} sek <br>
+  Total invested: {{stocksToTrade.totalInvestedSek}} sek <br>
+</p>
+
+<p *ngFor="let stockTradeInfo of stocksToTrade.list">
   <app-stock-details
-    name={{stock.name}}
-    ticker={{stock.ticker}}
-    valueSek={{stock.valueSek}}>
+    currancy="{{stockTradeInfo.currancy}}"
+    numberToSell="{{stockTradeInfo.numberToSell}}"
+    numberToBuy="{{stockTradeInfo.numberToBuy}}"
+    priceOrigCurrancy="{{stockTradeInfo.priceOrigCurrancy}}"
+    singleStockPriceSek="{{stockTradeInfo.singleStockPriceSek}}"
+    tickerName="{{stockTradeInfo.tickerName}}"
+    boughtAt="{{stockTradeInfo.currentStock.boughtAt}}"
+    currentCount="{{stockTradeInfo.currentStock.count}}"
+    name="{{stockTradeInfo.currentStock.name}}"
+    soldAt="{{stockTradeInfo.currentStock.soldAt}}"
+    tickerIsLocked="{{stockTradeInfo.currentStock.tickerIsLocked}}"
+    totalInvestedSek="{{stockTradeInfo.currentStock.totalInvestedSek}}">
   </app-stock-details>
 </p>
 

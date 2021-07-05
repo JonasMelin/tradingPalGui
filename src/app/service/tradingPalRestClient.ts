@@ -14,5 +14,9 @@ export class TradingPalRestClient {
   getStocksToBuy(): Observable<any> {
     return this.httpClient.get('api/tradingpal/getStocksToBuy');
   }
+
+  forceRefresh(): Observable<any> {
+    return this.httpClient.put('api/tradingpal/refresh', null);
+  }
 }
 

@@ -27,6 +27,9 @@ export class StockDetailsComponent implements OnInit {
   private tradingPalRestClient: TradingPalRestClient;
   private lockResponse: LockResponse = null;
   private submittingChanges = false;
+  private lockingStock = false;
+  private possibleToLock = true;
+  private lockedBySomeoneElse = false;
 
   constructor(private restClient: TradingPalRestClient) {
     this.tradingPalRestClient = restClient;
@@ -37,6 +40,9 @@ export class StockDetailsComponent implements OnInit {
     if (this.tickerName in window['tradingpaldata']['lockKeys'] && window['tradingpaldata']['lockKeys'][this.tickerName] != null) {
       this.lockResponse = window['tradingpaldata']['lockKeys'][this.tickerName];
     }
+
+    this.possibleToLock = this.tickerIsLocked === 'false' && this.lockResponse == null;
+    this.lockedBySomeoneElse = this.tickerIsLocked === 'true' && this.lockResponse == null;
 
     this.currentValueSek = Math.floor(this.currentCount * this.singleStockPriceSek);
     if (this.numberToSell) {
@@ -50,6 +56,8 @@ export class StockDetailsComponent implements OnInit {
   }
 
   lockStock() {
+    this.lockingStock = true;
+    this.possibleToLock = false;
     console.log('Locking stock ', this.tickerName);
     this.tradingPalRestClient.lockStock(this.tickerName).subscribe( retData => {
       window['tradingpaldata']['lockKeys'][this.tickerName] = retData

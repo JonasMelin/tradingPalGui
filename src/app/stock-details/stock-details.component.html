@@ -3,11 +3,13 @@
   <p style="margin-left: 5px">
     <font size="+1">
       <b>{{ name }} / {{ tickerName }} </b>
-      <button [hidden]="tickerIsLocked === 'true' || lockResponse != null" [name]="tickerName" (mousedown)="lockStock()">Lock for editing</button>
-      <button [hidden]="tickerIsLocked === 'false' || lockResponse == null" [name]="tickerName" (mousedown)="submitChangesAndUnlock()">Submitting changes...</button>
-      <font size="-1" [hidden]="lockResponse == null || tickerIsLocked === 'true'">Locking and refreshing...</font>
-      <font size="-1" [hidden]="!submittingChanges">updating...</font>
     </font>
+    <br>
+    <button [hidden]="!this.possibleToLock" [name]="tickerName" (mousedown)="lockStock()">Lock for editing</button>
+    <button [hidden]="tickerIsLocked === 'false' || lockResponse == null" [name]="tickerName" (mousedown)="submitChangesAndUnlock()">Submit changes</button>
+    <font size="-1" [hidden]="!lockingStock">Locking and refreshing...</font>
+    <font size="-1" [hidden]="!submittingChanges">Submitting and refreshing...</font>
+    <font size="-1" [hidden]="!lockedBySomeoneElse">Locked by someone else...</font>
     <br><br>
 
   <b style="color:blue" *ngIf="numberToSell">number to sell: {{ numberToSell }} <font size = "-2">({{sellValueSek}} (SEK))</font><br></b>

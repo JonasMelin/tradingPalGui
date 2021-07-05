@@ -8,6 +8,7 @@ import {TradingPalRestClient} from './service/tradingPalRestClient';
 })
 export class AppComponent {
   title = 'TradingPal Management GUI';
+  private refreshButtonDisabled = false;
 
   tradingPalRestClient: TradingPalRestClient;
 
@@ -19,6 +20,9 @@ export class AppComponent {
 
   forceRefresh() {
     console.log('Force refresh...')
-    this.tradingPalRestClient.forceRefresh();
+    this.refreshButtonDisabled = true;
+    this.tradingPalRestClient.forceRefresh().subscribe(retData => {
+      setTimeout(() => { this.refreshButtonDisabled = false; }, 1000);
+    });
   }
 }

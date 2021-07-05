@@ -17,8 +17,8 @@ export class TradingPalRestClient {
     return this.httpClient.get('api/tradingpal/getStocksToBuy');
   }
 
-  forceRefresh() {
-    this.httpClient.put('api/tradingpal/refresh', null).subscribe();
+  forceRefresh(): Observable<any> {
+    return this.httpClient.put('api/tradingpal/refresh', null);
   }
 
   lockStock(ticker: string): Observable<any>  {

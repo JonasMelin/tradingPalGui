@@ -2,8 +2,7 @@
 <div style="margin-left:10px;margin-right:10px">
 
   <div style="text-align:center;background-color:#ffdddd"><font size="+2"> <b>Trading pal</b></font></div>
-  <button (mousedown)="forceRefresh()">force refresh</button>
+  <button [disabled]="refreshButtonDisabled" (mouseup)="forceRefresh()">force refresh</button>
   <app-stock-detail-list></app-stock-detail-list>
-
 
 </div>

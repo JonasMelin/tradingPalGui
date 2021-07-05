@@ -6,8 +6,13 @@ import {HttpClient} from '@angular/common/http';
 export class TradingPalRestClient {
   constructor(private httpClient: HttpClient) {
   }
-  getData(): Observable<any> {
+
+  getStocksToSell(): Observable<any> {
     return this.httpClient.get('api/tradingpal/getStocksToSell');
+  }
+
+  getStocksToBuy(): Observable<any> {
+    return this.httpClient.get('api/tradingpal/getStocksToBuy');
   }
 }
 

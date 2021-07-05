@@ -9,27 +9,34 @@ import { StocksToTrade } from '../model/StocksToTrade';
 })
 export class StockDetailListComponent implements OnInit {
 
+  refreshIntervalSec = 30;
 
   tradingPalRestClient: TradingPalRestClient;
-  stockData = [];
-  stocksToTrade: StocksToTrade = new StocksToTrade();
+  stocksToBuy: StocksToTrade = new StocksToTrade();
+  stocksToSell: StocksToTrade = new StocksToTrade();
 
   constructor(private restClient: TradingPalRestClient) {
     this.tradingPalRestClient = restClient;
+    setInterval(this.getStocksToBuy.bind(this), this.refreshIntervalSec * 1000);
+    setInterval(this.getStocksToSell.bind(this), this.refreshIntervalSec * 1000);
     this.getStocksToBuy();
-
+    this.getStocksToSell();
   }
 
   ngOnInit() {
   }
 
-  getStocksToBuy() {
-    this.tradingPalRestClient.getData().subscribe(retData => {
-      this.stocksToTrade = retData;
-      console.log(this.stocksToTrade)
-      this.stockData.push({ticker: 'HPC', name: 'HP', valueSek: 125});
-      this.stockData.push({ticker: 'KIND.ST', name: 'Kindred', valueSek: 192});
+  getStocksToSell() {
+    console.log('Updating stocks to sell');
+    this.tradingPalRestClient.getStocksToSell().subscribe(retData => {
+      this.stocksToSell = retData;
     });
   }
 
+  getStocksToBuy() {
+    console.log('Updating stocks to buy');
+    this.tradingPalRestClient.getStocksToBuy().subscribe(retData => {
+      this.stocksToBuy = retData;
+    });
+  }
 }

@@ -1,13 +1,5 @@
 
-<p>
-  updated       : {{stocksToTrade.updatedUtc}} (UTC) <br>
-  successCounter: {{stocksToTrade.successCounter}} <br>
-  failCounter:    {{stocksToTrade.failCounter}} <br>
-  Total value   : {{stocksToTrade.totalGlobalValueSek}} sek <br>
-  Total invested: {{stocksToTrade.totalInvestedSek}} sek <br>
-</p>
-
-<p *ngFor="let stockTradeInfo of stocksToTrade.list">
+<p *ngFor="let stockTradeInfo of stocksToBuy.list">
   <app-stock-details
     currancy="{{stockTradeInfo.currancy}}"
     numberToSell="{{stockTradeInfo.numberToSell}}"
@@ -24,3 +16,30 @@
   </app-stock-details>
 </p>
 
+<p *ngFor="let stockTradeInfo of stocksToSell.list">
+  <app-stock-details
+    currancy="{{stockTradeInfo.currancy}}"
+    numberToSell="{{stockTradeInfo.numberToSell}}"
+    numberToBuy="{{stockTradeInfo.numberToBuy}}"
+    priceOrigCurrancy="{{stockTradeInfo.priceOrigCurrancy}}"
+    singleStockPriceSek="{{stockTradeInfo.singleStockPriceSek}}"
+    tickerName="{{stockTradeInfo.tickerName}}"
+    boughtAt="{{stockTradeInfo.currentStock.boughtAt}}"
+    currentCount="{{stockTradeInfo.currentStock.count}}"
+    name="{{stockTradeInfo.currentStock.name}}"
+    soldAt="{{stockTradeInfo.currentStock.soldAt}}"
+    tickerIsLocked="{{stockTradeInfo.currentStock.tickerIsLocked}}"
+    totalInvestedSek="{{stockTradeInfo.currentStock.totalInvestedSek}}">
+  </app-stock-details>
+</p>
+<hr>
+<p>
+
+  <font size="-1">
+    updated       : {{stocksToBuy.updatedUtc}} (UTC) <br>
+    successCounter: {{stocksToBuy.successCounter}} <br>
+    failCounter:    {{stocksToBuy.failCounter}} <br>
+    Total value   : {{stocksToBuy.totalGlobalValueSek}} sek <br>
+    Total invested: {{stocksToBuy.totalInvestedSek}} sek <br>
+  </font>
+</p>

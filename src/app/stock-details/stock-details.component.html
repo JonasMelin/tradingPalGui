@@ -10,9 +10,9 @@
 
     <br>
     <font size = "-1">
-      <i>price per share: {{ singleStockPriceSek }} (SEK)<br></i>
-      <i *ngIf="currancy != 'SEK'">price per share: {{ priceOrigCurrancy }} ({{ currancy }}) <br></i>
-      <i>Current count : {{ currentCount }} <br></i>
+      <i>price per share: {{ singleStockPriceSek }} (SEK)</i>
+      <i *ngIf="currancy != 'SEK'"> / {{ priceOrigCurrancy }} ({{ currancy }}) </i>
+      <i><br>Current count : {{ currentCount }} <br></i>
       <i>Total invested : {{ totalInvestedSek }} (SEK) <br></i>
       <i *ngIf="boughtAt">Bought at: {{ boughtAt }} ({{ currancy }})<br></i>
       <i *ngIf="soldAt">Sold at: {{ soldAt }} ({{ currancy }})<br></i>

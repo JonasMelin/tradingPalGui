@@ -1,11 +1,11 @@
-<div>
-  <hr>
+<div style="background-color:#ddddff;border-style: dotted">
+  <p style="margin-left: 5px">
     <font size="+1">
       <b>{{ name }} / {{ tickerName }}</b><br><br>
     </font>
 
-  <b *ngIf="numberToSell">number to sell: {{ numberToSell }} <font size = "-2">({{sellValueSek}} (SEK))</font><br></b>
-  <b *ngIf="numberToBuy">number to buy: {{ numberToBuy }} <font size = "-2">({{buyValueSek}} (SEK))</font><br></b>
+  <b style="color:blue" *ngIf="numberToSell">number to sell: {{ numberToSell }} <font size = "-2">({{sellValueSek}} (SEK))</font><br></b>
+  <b style="color:red" *ngIf="numberToBuy">number to buy: {{ numberToBuy }} <font size = "-2">({{buyValueSek}} (SEK))</font><br></b>
     Current value: {{currentValueSek}} (SEK)<br>
 
     <br>
@@ -18,7 +18,5 @@
       <i *ngIf="soldAt">Sold at: {{ soldAt }} ({{ currancy }})<br></i>
       <i>locked: {{ tickerIsLocked }} <br></i>
     </font>
-
-
-
+  </p>
 </div>

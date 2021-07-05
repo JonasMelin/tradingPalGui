@@ -1,45 +1,50 @@
+<div style="margin-left:10px;margin-right:10px">
 
-<p *ngFor="let stockTradeInfo of stocksToBuy.list">
-  <app-stock-details
-    currancy="{{stockTradeInfo.currancy}}"
-    numberToSell="{{stockTradeInfo.numberToSell}}"
-    numberToBuy="{{stockTradeInfo.numberToBuy}}"
-    priceOrigCurrancy="{{stockTradeInfo.priceOrigCurrancy}}"
-    singleStockPriceSek="{{stockTradeInfo.singleStockPriceSek}}"
-    tickerName="{{stockTradeInfo.tickerName}}"
-    boughtAt="{{stockTradeInfo.currentStock.boughtAt}}"
-    currentCount="{{stockTradeInfo.currentStock.count}}"
-    name="{{stockTradeInfo.currentStock.name}}"
-    soldAt="{{stockTradeInfo.currentStock.soldAt}}"
-    tickerIsLocked="{{stockTradeInfo.currentStock.tickerIsLocked}}"
-    totalInvestedSek="{{stockTradeInfo.currentStock.totalInvestedSek}}">
-  </app-stock-details>
-</p>
+  <div style="text-align:center;background-color:#ffdddd"><font size="+2"> <b>Trading pal</b></font></div>
 
-<p *ngFor="let stockTradeInfo of stocksToSell.list">
-  <app-stock-details
-    currancy="{{stockTradeInfo.currancy}}"
-    numberToSell="{{stockTradeInfo.numberToSell}}"
-    numberToBuy="{{stockTradeInfo.numberToBuy}}"
-    priceOrigCurrancy="{{stockTradeInfo.priceOrigCurrancy}}"
-    singleStockPriceSek="{{stockTradeInfo.singleStockPriceSek}}"
-    tickerName="{{stockTradeInfo.tickerName}}"
-    boughtAt="{{stockTradeInfo.currentStock.boughtAt}}"
-    currentCount="{{stockTradeInfo.currentStock.count}}"
-    name="{{stockTradeInfo.currentStock.name}}"
-    soldAt="{{stockTradeInfo.currentStock.soldAt}}"
-    tickerIsLocked="{{stockTradeInfo.currentStock.tickerIsLocked}}"
-    totalInvestedSek="{{stockTradeInfo.currentStock.totalInvestedSek}}">
-  </app-stock-details>
-</p>
-<hr>
-<p>
 
-  <font size="-1">
-    updated       : {{stocksToBuy.updatedUtc}} (UTC) <br>
-    successCounter: {{stocksToBuy.successCounter}} <br>
-    failCounter:    {{stocksToBuy.failCounter}} <br>
-    Total value   : {{stocksToBuy.totalGlobalValueSek}} sek <br>
-    Total invested: {{stocksToBuy.totalInvestedSek}} sek <br>
-  </font>
-</p>
+  <p *ngFor="let stockTradeInfo of stocksToBuy.list">
+    <app-stock-details
+      currancy="{{stockTradeInfo.currancy}}"
+      numberToSell="{{stockTradeInfo.numberToSell}}"
+      numberToBuy="{{stockTradeInfo.numberToBuy}}"
+      priceOrigCurrancy="{{stockTradeInfo.priceOrigCurrancy}}"
+      singleStockPriceSek="{{stockTradeInfo.singleStockPriceSek}}"
+      tickerName="{{stockTradeInfo.tickerName}}"
+      boughtAt="{{stockTradeInfo.currentStock.boughtAt}}"
+      currentCount="{{stockTradeInfo.currentStock.count}}"
+      name="{{stockTradeInfo.currentStock.name}}"
+      soldAt="{{stockTradeInfo.currentStock.soldAt}}"
+      tickerIsLocked="{{stockTradeInfo.currentStock.tickerIsLocked}}"
+      totalInvestedSek="{{stockTradeInfo.currentStock.totalInvestedSek}}">
+    </app-stock-details>
+  </p>
+
+  <p *ngFor="let stockTradeInfo of stocksToSell.list">
+    <app-stock-details
+      currancy="{{stockTradeInfo.currancy}}"
+      numberToSell="{{stockTradeInfo.numberToSell}}"
+      numberToBuy="{{stockTradeInfo.numberToBuy}}"
+      priceOrigCurrancy="{{stockTradeInfo.priceOrigCurrancy}}"
+      singleStockPriceSek="{{stockTradeInfo.singleStockPriceSek}}"
+      tickerName="{{stockTradeInfo.tickerName}}"
+      boughtAt="{{stockTradeInfo.currentStock.boughtAt}}"
+      currentCount="{{stockTradeInfo.currentStock.count}}"
+      name="{{stockTradeInfo.currentStock.name}}"
+      soldAt="{{stockTradeInfo.currentStock.soldAt}}"
+      tickerIsLocked="{{stockTradeInfo.currentStock.tickerIsLocked}}"
+      totalInvestedSek="{{stockTradeInfo.currentStock.totalInvestedSek}}">
+    </app-stock-details>
+  </p>
+  <hr>
+  <p style="color:gray">
+
+    <font size="-1">
+      updated       : {{stocksToBuy.updatedUtc}} (UTC) <br>
+      successCounter: {{stocksToBuy.successCounter}} <br>
+      failCounter:    {{stocksToBuy.failCounter}} <br>
+      Total value   : {{stocksToBuy.totalGlobalValueSek}} sek <br>
+      Total invested: {{stocksToBuy.totalInvestedSek}} sek <br>
+    </font>
+  </p>
+</div>

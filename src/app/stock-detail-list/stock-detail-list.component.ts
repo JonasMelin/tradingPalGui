@@ -9,7 +9,7 @@ import { StocksToTrade } from '../model/StocksToTrade';
 })
 export class StockDetailListComponent implements OnInit {
 
-  refreshIntervalSec = 30;
+  refreshIntervalSec = 15;
 
   tradingPalRestClient: TradingPalRestClient;
   stocksToBuy: StocksToTrade = new StocksToTrade();

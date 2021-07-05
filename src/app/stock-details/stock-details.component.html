@@ -1,8 +1,14 @@
 <div style="background-color:#ddddff;border-style: dotted">
+
   <p style="margin-left: 5px">
     <font size="+1">
-      <b>{{ name }} / {{ tickerName }}</b><br><br>
+      <b>{{ name }} / {{ tickerName }} </b>
+      <button [hidden]="tickerIsLocked === 'true' || lockResponse != null" [name]="tickerName" (mousedown)="lockStock()">Lock for editing</button>
+      <button [hidden]="tickerIsLocked === 'false' || lockResponse == null" [name]="tickerName" (mousedown)="submitChangesAndUnlock()">Submitting changes...</button>
+      <font size="-1" [hidden]="lockResponse == null || tickerIsLocked === 'true'">Locking and refreshing...</font>
+      <font size="-1" [hidden]="!submittingChanges">updating...</font>
     </font>
+    <br><br>
 
   <b style="color:blue" *ngIf="numberToSell">number to sell: {{ numberToSell }} <font size = "-2">({{sellValueSek}} (SEK))</font><br></b>
   <b style="color:red" *ngIf="numberToBuy">number to buy: {{ numberToBuy }} <font size = "-2">({{buyValueSek}} (SEK))</font><br></b>
@@ -16,7 +22,7 @@
       <i>Total invested : {{ totalInvestedSek }} (SEK) <br></i>
       <i *ngIf="boughtAt">Bought at: {{ boughtAt }} ({{ currancy }})<br></i>
       <i *ngIf="soldAt">Sold at: {{ soldAt }} ({{ currancy }})<br></i>
-      <i>locked: {{ tickerIsLocked }} <br></i>
+
     </font>
   </p>
 </div>

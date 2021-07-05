@@ -12,11 +12,13 @@ export class AppComponent {
   tradingPalRestClient: TradingPalRestClient;
 
   constructor(private restClient: TradingPalRestClient) {
+    window['tradingpaldata'] = {};
+    window['tradingpaldata']['lockKeys'] = {};
     this.tradingPalRestClient = restClient;
   }
 
   forceRefresh() {
     console.log('Force refresh...')
-    this.tradingPalRestClient.forceRefresh().subscribe();
+    this.tradingPalRestClient.forceRefresh();
   }
 }

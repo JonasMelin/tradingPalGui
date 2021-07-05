@@ -4,6 +4,6 @@ export class StockCurrentData {
   lockKey: number;
   name: string;
   soldAt: number;
-  tickerIsLocked: boolean;
+  tickerIsLocked: string;
   totalInvestedSek: number;
 }

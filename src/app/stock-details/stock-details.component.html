@@ -1,29 +1,44 @@
-<div style="background-color:#ddddff;border-style: dotted">
-
+<div style="background-color:#ddddff;border-style: dotted" xmlns="http://www.w3.org/1999/html">
   <p style="margin-left: 5px">
     <font size="+1">
       <b>{{ name }} / {{ tickerName }} </b>
     </font>
     <br>
-    <button [hidden]="!this.possibleToLock" [name]="tickerName" (mousedown)="lockStock()">Lock for editing</button>
-    <button [hidden]="tickerIsLocked === 'false' || lockResponse == null" [name]="tickerName" (mousedown)="submitChangesAndUnlock()">Submit changes</button>
-    <font size="-1" [hidden]="!lockingStock">Locking and refreshing...</font>
-    <font size="-1" [hidden]="!submittingChanges">Submitting and refreshing...</font>
-    <font size="-1" [hidden]="!lockedBySomeoneElse">Locked by someone else...</font>
+    <button [hidden]="!possibleToLock" [name]="tickerName" (mousedown)="lockStock()">Lock for editing</button>
+    <button [hidden]="!possibleToSubmit" [name]="tickerName" (mousedown)="cancelLock()">Cancel</button>
+    <font size="-1" *ngIf="lockStatusText != null">{{lockStatusText}}</font>
     <br><br>
 
-  <b style="color:blue" *ngIf="numberToSell">number to sell: {{ numberToSell }} <font size = "-2">({{sellValueSek}} (SEK))</font><br></b>
-  <b style="color:red" *ngIf="numberToBuy">number to buy: {{ numberToBuy }} <font size = "-2">({{buyValueSek}} (SEK))</font><br></b>
-    Current value: {{currentValueSek}} (SEK)<br>
+  <b style="color:blue" *ngIf="numberToSell">number to sell: {{ numberToSell }} <font size = "-2">({{sellValueSek | number : '1.0-0'}} (SEK))</font><br></b>
+  <b style="color:red" *ngIf="numberToBuy">number to buy: {{ numberToBuy }} <font size = "-2">({{buyValueSek | number : '1.0-0'}} (SEK))</font><br></b>
+    Current value: {{currentValueSek | number : '1.0-0' }} (SEK)<br>
 
     <br>
     <font size = "-1">
-      <i>price per share: {{ singleStockPriceSek }} (SEK)</i>
-      <i *ngIf="currancy != 'SEK'"> / {{ priceOrigCurrancy }} ({{ currancy }}) </i>
-      <i><br>Current count : {{ currentCount }} <br></i>
-      <i>Total invested : {{ totalInvestedSek }} (SEK) <br></i>
-      <i *ngIf="boughtAt">Bought at: {{ boughtAt }} ({{ currancy }})<br></i>
-      <i *ngIf="soldAt">Sold at: {{ soldAt }} ({{ currancy }})<br></i>
+      <i>price per share: {{ singleStockPriceSek | number : '1.2-2' }} (SEK)</i>
+      <i *ngIf="currancy != 'SEK'"> / {{ priceOrigCurrancy | number : '1.2-2' }} ({{ currancy }}) </i>
+
+      <i><br>Current count : {{ currentCount }} </i>
+      <input *ngIf="possibleToSubmit" mdbInput type="text" id="{{tickerName}}_form_count" class="form-control"
+             [defaultValue]="numberToSell ? currentCount - numberToSell : currentCount - numberToBuy" style="width:40px;">
+      <br>
+
+      <i>Total invested : {{ totalInvestedSek }} (SEK) </i>
+      <input *ngIf="possibleToSubmit" mdbInput type="text" id="{{tickerName}}_form_totinvest" class="form-control"
+             [defaultValue]="numberToSell ? (totalInvestedSek - sellValueSek | number : '1.0-0')  :
+             totalInvestedSek - 0 + buyValueSek | number : '1.0-0' " style="width:40px;">
+      <br>
+
+      <i *ngIf="boughtAt || (possibleToSubmit && numberToBuy)">Bought at: {{ boughtAt }} ({{ currancy }}) </i>
+      <input *ngIf="(possibleToSubmit && numberToBuy)" mdbInput type="text" id="{{tickerName}}_form_boughtat" class="form-control"
+             [defaultValue]=" priceOrigCurrancy | number : '1.2-2' " style="width:40px;">
+      <br>
+
+      <i *ngIf="soldAt || (possibleToSubmit && numberToSell)">Sold at: {{ soldAt }} ({{ currancy }}) </i>
+      <input *ngIf="(possibleToSubmit && numberToSell)" mdbInput type="text" id="{{tickerName}}_form_soldat" class="form-control"
+             [defaultValue]=" priceOrigCurrancy | number : '1.2-2'" style="width:40px;">
+
+      <br>
 
     </font>
   </p>

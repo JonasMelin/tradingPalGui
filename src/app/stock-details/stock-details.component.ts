@@ -27,49 +27,67 @@ export class StockDetailsComponent implements OnInit {
   private tradingPalRestClient: TradingPalRestClient;
   private lockResponse: LockResponse = null;
   private submittingChanges = false;
+  private cancelling = false;
   private lockingStock = false;
   private possibleToLock = true;
+  private possibleToSubmit = false;
   private lockedBySomeoneElse = false;
+  private lockStatusText: string = null;
 
   constructor(private restClient: TradingPalRestClient) {
     this.tradingPalRestClient = restClient;
   }
 
   ngOnInit() {
+    this.updateFlags();
 
-    if (this.tickerName in window['tradingpaldata']['lockKeys'] && window['tradingpaldata']['lockKeys'][this.tickerName] != null) {
-      this.lockResponse = window['tradingpaldata']['lockKeys'][this.tickerName];
-    }
-
-    this.possibleToLock = this.tickerIsLocked === 'false' && this.lockResponse == null;
-    this.lockedBySomeoneElse = this.tickerIsLocked === 'true' && this.lockResponse == null;
-
-    this.currentValueSek = Math.floor(this.currentCount * this.singleStockPriceSek);
+    this.currentValueSek = this.currentCount * this.singleStockPriceSek;
     if (this.numberToSell) {
-      this.sellValueSek = Math.floor(this.numberToSell * this.singleStockPriceSek);
+      this.sellValueSek = this.numberToSell * this.singleStockPriceSek;
     }
     if (this.numberToBuy) {
-      this.buyValueSek = Math.floor(this.numberToBuy * this.singleStockPriceSek);
+      this.buyValueSek = this.numberToBuy * this.singleStockPriceSek;
     }
-    this.singleStockPriceSek = Math.floor(this.singleStockPriceSek);
-    this.priceOrigCurrancy = Math.floor(this.priceOrigCurrancy);
+    this.singleStockPriceSek = this.singleStockPriceSek;
+    this.priceOrigCurrancy = this.priceOrigCurrancy;
+  }
+
+  updateFlags() {
+    if (this.tickerName in window['tradingpaldata']['lockKeys'] && window['tradingpaldata']['lockKeys'][this.tickerName] != null) {
+      this.lockResponse = window['tradingpaldata']['lockKeys'][this.tickerName];
+    } else {
+      this.lockResponse = null;
+    }
+    this.possibleToSubmit = this.tickerIsLocked === 'true' && this.lockResponse != null;
+    this.possibleToLock = this.tickerIsLocked === 'false' && this.lockResponse == null;
+    this.lockedBySomeoneElse = this.tickerIsLocked === 'true' && this.lockResponse == null;
+    this.lockStatusText = null;
+    if (this.lockingStock) {
+      this.lockStatusText = 'Locking stock and refreshing...';
+    } else if (this.cancelling) {
+      this.lockStatusText = 'Cancelling...';
+    } else if (this.submittingChanges) {
+      this.lockStatusText = 'Submitting changes and refreshing...';
+    } else if (this.lockedBySomeoneElse) {
+      this.lockStatusText = 'Stock is locked by someone else...';
+    }
   }
 
   lockStock() {
     this.lockingStock = true;
-    this.possibleToLock = false;
+    this.updateFlags();
     console.log('Locking stock ', this.tickerName);
     this.tradingPalRestClient.lockStock(this.tickerName).subscribe( retData => {
       window['tradingpaldata']['lockKeys'][this.tickerName] = retData
-      this.lockResponse = retData;
+      this.updateFlags();
     });
   }
 
-  submitChangesAndUnlock() {
-    console.log('Submitting changes ', this.tickerName);
+  cancelLock() {
+    console.log('Cancel changes ', this.tickerName);
     this.tradingPalRestClient.unLockStock(this.tickerName, this.lockResponse.lockKey);
     window['tradingpaldata']['lockKeys'][this.tickerName] = null;
-    this.lockResponse = null;
-    this.submittingChanges = true;
+    this.cancelling = true;
+    this.updateFlags();
   }
 }

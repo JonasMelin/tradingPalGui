@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {StockTradeInfo} from '../model/StockTradeInfo';
 import {TradingPalRestClient} from '../service/tradingPalRestClient';
 import {LockResponse} from '../model/LockResponse';
+import {SubmitStockUpdate} from '../model/SubmitStockUpdate';
 
 @Component({
   selector: 'app-stock-details',
@@ -89,5 +90,77 @@ export class StockDetailsComponent implements OnInit {
     window['tradingpaldata']['lockKeys'][this.tickerName] = null;
     this.cancelling = true;
     this.updateFlags();
+  }
+
+  submitChanges() {
+    let soldAt = 0;
+    let boughtAt = 0;
+    const stockCount: number = +(<HTMLInputElement>document.getElementById(this.tickerName + '_form_count'))
+      .value.replace(',', '');
+    const totInvest: number = +(<HTMLInputElement>document.getElementById(this.tickerName + '_form_totinvest'))
+      .value.replace(',', '');
+    try {
+      soldAt = +(<HTMLInputElement> document.getElementById(this.tickerName + '_form_soldat'))
+        .value.replace(',', '');
+    } catch (e) {}
+    try {
+      boughtAt = +(<HTMLInputElement> document.getElementById(this.tickerName + '_form_boughtat'))
+        .value.replace(',', '');
+    } catch (e) {}
+
+    const submitData = this.validateTextFields(soldAt, boughtAt, stockCount, totInvest);
+
+    if (submitData != null) {
+      window['tradingpaldata']['lockKeys'][this.tickerName] = null;
+      this.lockResponse = null;
+      this.tradingPalRestClient.updateStock(submitData).subscribe(retData => {
+        console.log('Submitted updates OK!');
+      });
+    }
+    console.log('Submitting data: ', submitData);
+  }
+
+  validateTextFields(soldAt: number, boughtAt: number, stockCount: number, totInvest: number): SubmitStockUpdate {
+
+    const submitData = new SubmitStockUpdate();
+    submitData.lockKey = this.lockResponse.lockKey;
+    submitData.ticker = this.tickerName;
+
+    if (soldAt !== 0 && boughtAt !== 0) {
+      alert('you cannot provide both soldAt and boughtAt values');
+      return null;
+    }
+
+    if (isNaN(soldAt)) {
+      alert('Illegal soldAt value. Provide a number!');
+      return null;
+    }
+    if (isNaN(boughtAt)) {
+      alert('Illegal boughtAt value. Provide a number!');
+      return null;
+    }
+    if (isNaN(stockCount)) {
+      alert('Illegal stockCount value. Provide a number!');
+      return null;
+    }
+    if (isNaN(totInvest)) {
+      alert('Illegal totInvest value. Provide a number!');
+      return null;
+    }
+
+    submitData.soldAt = soldAt !== 0 ? soldAt : null;
+    submitData.boughtAt = boughtAt !== 0 ? boughtAt : null;
+    submitData.count = Math.floor(stockCount);
+    submitData.totalInvestedSek = Math.floor(totInvest);
+
+    if (!(submitData.count > 0 && submitData.count < 100000)) {
+      alert('Illegal stock count value: ' + submitData.count);
+      return null;
+    }
+
+    if (!(submitData.totalInvestedSek > 0 && submitData.totalInvestedSek < 1000000)){
+      alert('Illegal total invested value: ' + submitData.totalInvestedSek);
+    }
+    return submitData;
   }
 }

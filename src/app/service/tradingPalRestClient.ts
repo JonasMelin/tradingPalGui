@@ -3,6 +3,7 @@ import {Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {LockFileData} from '../model/LockFileData';
 import {UnlockFileData} from '../model/UnlockFileData';
+import {SubmitStockUpdate} from '../model/SubmitStockUpdate';
 
 @Injectable()
 export class TradingPalRestClient {
@@ -32,6 +33,10 @@ export class TradingPalRestClient {
     body.ticker = ticker;
     body.lockKey = lockKey;
     return this.httpClient.post('api/tradingpal/unlock', body).subscribe();
+  }
+
+  updateStock(submitStockUpdate: SubmitStockUpdate): Observable<any> {
+    return this.httpClient.post('api/tradingpal/updateStock', submitStockUpdate);
   }
 }
 

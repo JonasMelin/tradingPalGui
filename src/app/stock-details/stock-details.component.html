@@ -4,8 +4,9 @@
       <b>{{ name }} / {{ tickerName }} </b>
     </font>
     <br>
-    <button [hidden]="!possibleToLock" [name]="tickerName" (mousedown)="lockStock()">Lock for editing</button>
-    <button [hidden]="!possibleToSubmit" [name]="tickerName" (mousedown)="cancelLock()">Cancel</button>
+    <button [hidden]="!possibleToLock" (mousedown)="lockStock()">Lock for editing</button>
+    <button [hidden]="!possibleToSubmit" (mousedown)="cancelLock()">Cancel</button>
+    <button [hidden]="!possibleToSubmit" (mousedown)="submitChanges()">Apply</button>
     <font size="-1" *ngIf="lockStatusText != null">{{lockStatusText}}</font>
     <br><br>
 

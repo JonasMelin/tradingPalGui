@@ -21,7 +21,7 @@
 
       <i><br>Current count : {{ currentCount }} </i>
       <input *ngIf="possibleToSubmit" mdbInput type="text" id="{{tickerName}}_form_count" class="form-control"
-             [defaultValue]="numberToSell ? currentCount - numberToSell : currentCount - numberToBuy" style="width:40px;">
+             [defaultValue]="numberToSell ? currentCount - numberToSell : +currentCount + +numberToBuy" style="width:40px;">
       <br>
 
       <i>Total invested : {{ totalInvestedSek }} (SEK) </i>

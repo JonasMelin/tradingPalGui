@@ -22,25 +22,25 @@ export class StockDetailsComponent implements OnInit {
   @Input() private soldAt: number;
   @Input() private tickerIsLocked: string;
   @Input() private totalInvestedSek: number;
+  @Input() private lastUpdateVersion: number;
   private currentValueSek: number;
   private sellValueSek: number;
   private buyValueSek: number;
   private tradingPalRestClient: TradingPalRestClient;
   private lockResponse: LockResponse = null;
-  private submittingChanges = false;
-  private cancelling = false;
-  private lockingStock = false;
   private possibleToLock = true;
   private possibleToSubmit = false;
   private lockedBySomeoneElse = false;
-  private lockStatusText: string = null;
+  private lockStatusText: string;
 
   constructor(private restClient: TradingPalRestClient) {
     this.tradingPalRestClient = restClient;
   }
 
   ngOnInit() {
+    this.createPersistantStockStorage();
     this.updateFlags();
+    this.getTemporaryStatusMessage();
 
     this.currentValueSek = this.currentCount * this.singleStockPriceSek;
     if (this.numberToSell) {
@@ -49,46 +49,41 @@ export class StockDetailsComponent implements OnInit {
     if (this.numberToBuy) {
       this.buyValueSek = this.numberToBuy * this.singleStockPriceSek;
     }
-    this.singleStockPriceSek = this.singleStockPriceSek;
-    this.priceOrigCurrancy = this.priceOrigCurrancy;
   }
 
   updateFlags() {
-    if (this.tickerName in window['tradingpaldata']['lockKeys'] && window['tradingpaldata']['lockKeys'][this.tickerName] != null) {
-      this.lockResponse = window['tradingpaldata']['lockKeys'][this.tickerName];
+    if ('lockKey' in window['tradingpaldata'][this.tickerName] &&
+      window['tradingpaldata'][this.tickerName]['lockKey'] != null) {
+      this.lockResponse = window['tradingpaldata'][this.tickerName]['lockKey'];
     } else {
       this.lockResponse = null;
     }
     this.possibleToSubmit = this.tickerIsLocked === 'true' && this.lockResponse != null;
     this.possibleToLock = this.tickerIsLocked === 'false' && this.lockResponse == null;
     this.lockedBySomeoneElse = this.tickerIsLocked === 'true' && this.lockResponse == null;
-    this.lockStatusText = null;
-    if (this.lockingStock) {
-      this.lockStatusText = 'Locking stock and refreshing...';
-    } else if (this.cancelling) {
-      this.lockStatusText = 'Cancelling...';
-    } else if (this.submittingChanges) {
-      this.lockStatusText = 'Submitting changes and refreshing...';
-    } else if (this.lockedBySomeoneElse) {
-      this.lockStatusText = 'Stock is locked by someone else...';
-    }
   }
 
   lockStock() {
-    this.lockingStock = true;
-    this.updateFlags();
-    console.log('Locking stock ', this.tickerName);
-    this.tradingPalRestClient.lockStock(this.tickerName).subscribe( retData => {
-      window['tradingpaldata']['lockKeys'][this.tickerName] = retData
-      this.updateFlags();
-    });
+
+    try {
+      this.tradingPalRestClient.lockStock(this.tickerName).subscribe(retData => {
+        window['tradingpaldata'][this.tickerName]['lockKey'] = retData;
+        this.lockResponse = retData;
+        this.setTemporaryStatusMessage('Locking stock and refreshing all data...');
+        this.setFastRefresh(true);
+        this.updateFlags();
+      }, error => {
+        alert ('Could not lock stock...');
+      });
+    } catch (e) {
+    }
   }
 
   cancelLock() {
-    console.log('Cancel changes ', this.tickerName);
     this.tradingPalRestClient.unLockStock(this.tickerName, this.lockResponse.lockKey);
-    window['tradingpaldata']['lockKeys'][this.tickerName] = null;
-    this.cancelling = true;
+    window['tradingpaldata'][this.tickerName]['lockKey'] = null;
+    this.setTemporaryStatusMessage('Cancelling...');
+    this.setFastRefresh(true);
     this.updateFlags();
   }
 
@@ -111,13 +106,14 @@ export class StockDetailsComponent implements OnInit {
     const submitData = this.validateTextFields(soldAt, boughtAt, stockCount, totInvest);
 
     if (submitData != null) {
-      window['tradingpaldata']['lockKeys'][this.tickerName] = null;
-      this.lockResponse = null;
       this.tradingPalRestClient.updateStock(submitData).subscribe(retData => {
-        console.log('Submitted updates OK!');
+        window['tradingpaldata'][this.tickerName]['lockKey'] = null;
+        this.lockResponse = null;
+        this.setTemporaryStatusMessage('Submitting changes and updating...');
+        this.setFastRefresh(true);
+        this.updateFlags();
       });
     }
-    console.log('Submitting data: ', submitData);
   }
 
   validateTextFields(soldAt: number, boughtAt: number, stockCount: number, totInvest: number): SubmitStockUpdate {
@@ -158,9 +154,44 @@ export class StockDetailsComponent implements OnInit {
       return null;
     }
 
-    if (!(submitData.totalInvestedSek > 0 && submitData.totalInvestedSek < 1000000)){
+    if (!(submitData.totalInvestedSek > 0 && submitData.totalInvestedSek < 1000000)) {
       alert('Illegal total invested value: ' + submitData.totalInvestedSek);
     }
     return submitData;
+  }
+
+  setFastRefresh(value: boolean) {
+    window['tradingpaldata']['fastRefresh'] = value;
+  }
+
+  createPersistantStockStorage() {
+    if (! (this.tickerName in window['tradingpaldata'])) {
+      window['tradingpaldata'][this.tickerName] = {};
+    }
+    if (! ('tempMessage' in window['tradingpaldata'][this.tickerName])) {
+      window['tradingpaldata'][this.tickerName]['tempMessage'] = {};
+    }
+  }
+
+  deletePersistantStockStorage() {
+    delete(window['tradingpaldata'][this.tickerName]);
+  }
+
+  setTemporaryStatusMessage(message: string) {
+    window['tradingpaldata'][this.tickerName]['tempMessage'] = {};
+    window['tradingpaldata'][this.tickerName]['tempMessage'][this.lastUpdateVersion] = message;
+    this.lockStatusText = message;
+  }
+
+  getTemporaryStatusMessage() {
+    if (this.lastUpdateVersion in window['tradingpaldata'][this.tickerName]['tempMessage']) {
+      this.lockStatusText = window['tradingpaldata'][this.tickerName]['tempMessage'][this.lastUpdateVersion];
+    } else {
+      if (this.lockedBySomeoneElse) {
+        this.lockStatusText ='Locked by someone else';
+      } else {
+        this.lockStatusText = '';
+      }
+    }
   }
 }

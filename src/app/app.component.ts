@@ -14,7 +14,7 @@ export class AppComponent {
 
   constructor(private restClient: TradingPalRestClient) {
     window['tradingpaldata'] = {};
-    window['tradingpaldata']['lockKeys'] = {};
+    window['tradingpaldata']['fastRefresh'] = false;
     this.tradingPalRestClient = restClient;
   }
 

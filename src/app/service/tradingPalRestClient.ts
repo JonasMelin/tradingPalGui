@@ -14,6 +14,10 @@ export class TradingPalRestClient {
     return this.httpClient.get('api/tradingpal/getStocksToSell');
   }
 
+  getAllStocks(): Observable<any> {
+    return this.httpClient.get('api/tradingpal/getAllStocks');
+  }
+
   getStocksToBuy(): Observable<any> {
     return this.httpClient.get('api/tradingpal/getStocksToBuy');
   }

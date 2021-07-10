@@ -23,6 +23,7 @@ export class StockDetailsComponent implements OnInit {
   @Input() private tickerIsLocked: string;
   @Input() private totalInvestedSek: number;
   @Input() private lastUpdateVersion: number;
+  @Input() private openAllFieldsForEditing: boolean;
   private currentValueSek: number;
   private sellValueSek: number;
   private buyValueSek: number;

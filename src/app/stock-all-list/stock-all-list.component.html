@@ -1,0 +1,20 @@
+<div>
+
+  <p *ngFor="let stockTradeInfo of allStocks.list">
+    <app-stock-details
+      currancy="{{stockTradeInfo.currancy}}"
+      numberToSell="{{stockTradeInfo.numberToSell}}"
+      numberToBuy="{{stockTradeInfo.numberToBuy}}"
+      priceOrigCurrancy="{{stockTradeInfo.priceOrigCurrancy}}"
+      singleStockPriceSek="{{stockTradeInfo.singleStockPriceSek}}"
+      tickerName="{{stockTradeInfo.tickerName}}"
+      boughtAt="{{stockTradeInfo.currentStock.boughtAt}}"
+      currentCount="{{stockTradeInfo.currentStock.count}}"
+      name="{{stockTradeInfo.currentStock.name}}"
+      soldAt="{{stockTradeInfo.currentStock.soldAt}}"
+      tickerIsLocked="{{stockTradeInfo.currentStock.tickerIsLocked}}"
+      totalInvestedSek="{{stockTradeInfo.currentStock.totalInvestedSek}}"
+      openAllFieldsForEditing="true">
+    </app-stock-details>
+  </p>
+</div>

@@ -6,13 +6,15 @@ import { StockDetailsComponent } from './stock-details/stock-details.component';
 import { StockDetailListComponent } from './stock-detail-list/stock-detail-list.component';
 import { HttpClientModule} from '@angular/common/http';
 import {TradingPalRestClient} from './service/tradingPalRestClient';
+import { StockAllListComponent } from './stock-all-list/stock-all-list.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     StockDetailsComponent,
-    StockDetailListComponent
+    StockDetailListComponent,
+    StockAllListComponent
   ],
   imports: [
     BrowserModule,

@@ -1,20 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-import { TradingPalRestClient } from '../service/tradingPalRestClient';
-import { StocksToTrade } from '../model/StocksToTrade';
+import {TradingPalRestClient} from '../service/tradingPalRestClient';
+import {StocksToTrade} from '../model/StocksToTrade';
 
 @Component({
-  selector: 'app-stock-detail-list',
-  templateUrl: './stock-detail-list.component.html',
-  styleUrls: ['./stock-detail-list.component.css']
+  selector: 'app-stock-all-list',
+  templateUrl: './stock-all-list.component.html',
+  styleUrls: ['./stock-all-list.component.css']
 })
-export class StockDetailListComponent implements OnInit {
+export class StockAllListComponent implements OnInit {
 
   private tradingPalRestClient: TradingPalRestClient;
-  private stocksToBuy: StocksToTrade = new StocksToTrade();
-  private stocksToSell: StocksToTrade = new StocksToTrade();
+  private allStocks: StocksToTrade = new StocksToTrade();
+  private lastUpdateVersionBuy = 0;
   private timeoutCounter = 100;
   private timeoutNormalIntervalSec = 30;
-  private lastUpdateVersionBuy = 0;
 
   constructor(private restClient: TradingPalRestClient) {
     this.tradingPalRestClient = restClient;
@@ -22,35 +21,30 @@ export class StockDetailListComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getAllStocks();
+  }
+
+  getAllStocks() {
+    this.tradingPalRestClient.getAllStocks().subscribe(retData => {
+      console.log('All stocks: ', retData);
+
+      this.allStocks = retData;
+    });
   }
 
   timeOutCallback() {
     try {
       if (this.timeoutCounter >= this.timeoutNormalIntervalSec || this.isFastRefresh()) {
         this.timeoutCounter = 0;
-        this.getStocksToSell();
-        this.getStocksToBuy();
+        this.getAllStocks();
       } else {
         this.timeoutCounter ++;
       }
     } catch (e) {
-      console.log('Error when getting stocks to sell or buy: ', e);
+      console.log('Error when getting all stocks: ', e);
     } finally {
       setTimeout(this.timeOutCallback.bind(this),  1000);
     }
-  }
-
-  getStocksToSell() {
-    this.tradingPalRestClient.getStocksToSell().subscribe(retData => {
-      this.stocksToSell = retData;
-    });
-  }
-
-  getStocksToBuy() {
-    this.tradingPalRestClient.getStocksToBuy().subscribe(retData => {
-      this.stocksToBuy = retData;
-      this.setRefreshRate(this.stocksToBuy);
-    });
   }
 
   isFastRefresh() {

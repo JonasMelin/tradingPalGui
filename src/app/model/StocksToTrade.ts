@@ -5,6 +5,7 @@ export class StocksToTrade {
   updateVersion: number;
   failCounter: number;
   successCounter: number;
+  skippedCounter: number;
   buyModeStocks: number;
   neutralModeStocks: number;
   sellModeStocks: number;

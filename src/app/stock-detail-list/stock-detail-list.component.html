@@ -36,6 +36,25 @@
     </app-stock-details>
   </p>
   <hr>
+
+
+  <p *ngFor="let transaction of transactions">
+    <app-transaction-detail
+      name="{{transaction.name}}"
+      date="{{transaction.date}}"
+      boughtAt="{{transaction.boughtAt}}"
+      count="{{transaction.count}}"
+      currency="{{transaction.currency}}"
+      soldAt="{{transaction.soldAt}}"
+      totalInvestedSek="{{transaction.totalInvestedSek}}"
+      purchasedStocks="{{transaction.purchasedStocks}}"
+      purchaseValueSek="{{transaction.purchaseValueSek}}"
+      tradedByBot="{{transaction.tradedByBot}}"
+      >
+    </app-transaction-detail>
+  </p>
+
+  <hr>
   <p style="color:gray">
 
     <font size="-1">

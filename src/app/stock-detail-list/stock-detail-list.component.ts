@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TradingPalRestClient } from '../service/tradingPalRestClient';
 import { StocksToTrade } from '../model/StocksToTrade';
+import {Transactions} from '../model/Transactions';
 
 @Component({
   selector: 'app-stock-detail-list',
@@ -12,6 +13,7 @@ export class StockDetailListComponent implements OnInit {
   private tradingPalRestClient: TradingPalRestClient;
   private stocksToBuy: StocksToTrade = new StocksToTrade();
   private stocksToSell: StocksToTrade = new StocksToTrade();
+  private transactions: Transactions[];
   private timeoutCounter = 100;
   private timeoutNormalIntervalSec = 30;
   private lastUpdateVersionBuy = 0;
@@ -30,6 +32,7 @@ export class StockDetailListComponent implements OnInit {
         this.timeoutCounter = 0;
         this.getStocksToSell();
         this.getStocksToBuy();
+        this.getStocksTransacted();
       } else {
         this.timeoutCounter ++;
       }
@@ -38,6 +41,12 @@ export class StockDetailListComponent implements OnInit {
     } finally {
       setTimeout(this.timeOutCallback.bind(this),  1000);
     }
+  }
+
+  getStocksTransacted() {
+    this.tradingPalRestClient.getTransactions().subscribe(retData => {
+      this.transactions = retData.retval.reverse();
+    });
   }
 
   getStocksToSell() {

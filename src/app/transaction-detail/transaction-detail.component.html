@@ -1,0 +1,12 @@
+<div style="background-color:#ddddee;border-style: dotted" xmlns="http://www.w3.org/1999/html">
+  <p style="margin-left: 5px">
+    <font size="+1">
+      <b style="color:blue" *ngIf="soldAt"> {{ name }}  <font size = "-2">(bought: {{count}} / {{ -purchaseValueSek }} (SEK))</font></b>
+      <b style="color:red" *ngIf="boughtAt"> {{ name }} <font size = "-2">(sold: {{count}} / {{ purchaseValueSek }} (SEK))</font></b>
+    </font>
+    <br>
+    <font size = "-1">
+      <i> {{ date }} (UTC)), traded by bot: {{tradedByBot}}</i>
+    </font>
+
+  </div>

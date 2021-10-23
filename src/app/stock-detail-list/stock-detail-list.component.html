@@ -35,10 +35,10 @@
       lastUpdateVersion="{{stocksToSell.updateVersion}}">
     </app-stock-details>
   </p>
-  <hr>
 
-
-  <p *ngFor="let transaction of transactions">
+  <hr *ngIf="transactionsToday.length != 0">
+  <i *ngIf="transactionsToday.length != 0"> Transactions Today</i><br>
+  <p *ngFor="let transaction of transactionsToday">
     <app-transaction-detail
       name="{{transaction.name}}"
       date="{{transaction.date}}"
@@ -51,6 +51,25 @@
       purchaseValueSek="{{transaction.purchaseValueSek}}"
       tradedByBot="{{transaction.tradedByBot}}"
       >
+    </app-transaction-detail>
+  </p>
+
+  <hr *ngIf="transactionsYesterday.length != 0">
+  <i *ngIf="transactionsYesterday.length != 0"> Yesterday</i><br>
+  <p *ngFor="let transaction of transactionsYesterday">
+    <app-transaction-detail
+      name="{{transaction.name}}"
+      date="{{transaction.date}}"
+      boughtAt="{{transaction.boughtAt}}"
+      count="{{transaction.count}}"
+      currency="{{transaction.currency}}"
+      soldAt="{{transaction.soldAt}}"
+      totalInvestedSek="{{transaction.totalInvestedSek}}"
+      purchasedStocks="{{transaction.purchasedStocks}}"
+      purchaseValueSek="{{transaction.purchaseValueSek}}"
+      tradedByBot="{{transaction.tradedByBot}}"
+      alpha=0.25
+    >
     </app-transaction-detail>
   </p>
 

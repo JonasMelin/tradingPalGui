@@ -13,7 +13,8 @@ export class StockDetailListComponent implements OnInit {
   private tradingPalRestClient: TradingPalRestClient;
   private stocksToBuy: StocksToTrade = new StocksToTrade();
   private stocksToSell: StocksToTrade = new StocksToTrade();
-  private transactions: Transactions[];
+  private transactionsToday: Transactions[];
+  private transactionsYesterday: Transactions[];
   private timeoutCounter = 100;
   private timeoutNormalIntervalSec = 30;
   private lastUpdateVersionBuy = 0;
@@ -32,7 +33,8 @@ export class StockDetailListComponent implements OnInit {
         this.timeoutCounter = 0;
         this.getStocksToSell();
         this.getStocksToBuy();
-        this.getStocksTransacted();
+        this.getStocksTransactedToday();
+        this.getStocksTransactedYesterday();
       } else {
         this.timeoutCounter ++;
       }
@@ -43,9 +45,15 @@ export class StockDetailListComponent implements OnInit {
     }
   }
 
-  getStocksTransacted() {
-    this.tradingPalRestClient.getTransactions().subscribe(retData => {
-      this.transactions = retData.retval.reverse();
+  getStocksTransactedToday() {
+    this.tradingPalRestClient.getTransactions(0).subscribe(retData => {
+      this.transactionsToday = retData.retval.reverse();
+    });
+  }
+
+  getStocksTransactedYesterday() {
+    this.tradingPalRestClient.getTransactions(1).subscribe(retData => {
+      this.transactionsYesterday = retData.retval.reverse();
     });
   }
 

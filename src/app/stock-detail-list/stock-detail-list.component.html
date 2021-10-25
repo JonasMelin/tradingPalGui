@@ -36,8 +36,8 @@
     </app-stock-details>
   </p>
 
-  <hr *ngIf="transactionsToday.length != 0">
-  <i *ngIf="transactionsToday.length != 0"> Transactions Today</i><br>
+  <hr *ngIf="transactionsToday && transactionsToday.length != 0">
+  <i *ngIf="transactionsToday && transactionsToday.length != 0"> Transactions Today</i><br>
   <p *ngFor="let transaction of transactionsToday">
     <app-transaction-detail
       name="{{transaction.name}}"
@@ -54,8 +54,8 @@
     </app-transaction-detail>
   </p>
 
-  <hr *ngIf="transactionsYesterday.length != 0">
-  <i *ngIf="transactionsYesterday.length != 0"> Yesterday</i><br>
+  <hr *ngIf="transactionsYesterday && transactionsYesterday.length != 0">
+  <i *ngIf="transactionsYesterday && transactionsYesterday.length != 0"> Yesterday</i><br>
   <p *ngFor="let transaction of transactionsYesterday">
     <app-transaction-detail
       name="{{transaction.name}}"
@@ -74,6 +74,25 @@
   </p>
 
   <hr>
+
+  <app-turnover-detail
+    title="today"
+    boughtForSek="{{turnoverToday.boughtForSek}}"
+    soldForSek="{{turnoverToday.soldForSek}}">
+  </app-turnover-detail>
+  <br>
+  <app-turnover-detail
+    title="week"
+    boughtForSek="{{turnoverWeek.boughtForSek}}"
+    soldForSek="{{turnoverWeek.soldForSek}}">
+  </app-turnover-detail>
+  <br>
+  <app-turnover-detail
+    title="month"
+    boughtForSek="{{turnoverMonth.boughtForSek}}"
+    soldForSek="{{turnoverMonth.soldForSek}}">
+  </app-turnover-detail>
+  
   <p style="color:gray">
 
     <font size="-1">

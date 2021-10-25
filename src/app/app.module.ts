@@ -8,6 +8,7 @@ import { HttpClientModule} from '@angular/common/http';
 import {TradingPalRestClient} from './service/tradingPalRestClient';
 import { StockAllListComponent } from './stock-all-list/stock-all-list.component';
 import { TransactionDetailComponent } from './transaction-detail/transaction-detail.component';
+import { TurnoverDetailComponent } from './turnover-detail/turnover-detail.component';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { TransactionDetailComponent } from './transaction-detail/transaction-det
     StockDetailsComponent,
     StockDetailListComponent,
     StockAllListComponent,
-    TransactionDetailComponent
+    TransactionDetailComponent,
+    TurnoverDetailComponent
   ],
   imports: [
     BrowserModule,

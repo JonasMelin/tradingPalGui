@@ -1,6 +1,6 @@
 
-  <font size="-1">
-    <i style="color:gray; background:lightgray">{{title}} (SEK): Bought for {{boughtForSek}}, sold for {{soldForSek}}, turnover {{ (boughtForSek - 0) + (soldForSek - 0)}}</i>
+  <font size="-2">
+    <i style="color:gray">{{title}} (SEK): B:{{boughtForSek | number: '1.0-0'}} / S:{{soldForSek | number: '1.0-0'}} / T:{{ ((boughtForSek - 0) + (soldForSek - 0)) | number: '1.0-0'}}</i>
   </font>
 
 

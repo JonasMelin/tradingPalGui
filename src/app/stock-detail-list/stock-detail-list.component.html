@@ -72,27 +72,27 @@
     >
     </app-transaction-detail>
   </p>
-
+  
   <hr>
 
-  <app-turnover-detail
+  <app-turnover-detail *ngIf="turnoverToday"
     title="today"
     boughtForSek="{{turnoverToday.boughtForSek}}"
     soldForSek="{{turnoverToday.soldForSek}}">
   </app-turnover-detail>
   <br>
-  <app-turnover-detail
+  <app-turnover-detail *ngIf="turnoverWeek"
     title="week"
     boughtForSek="{{turnoverWeek.boughtForSek}}"
     soldForSek="{{turnoverWeek.soldForSek}}">
   </app-turnover-detail>
   <br>
-  <app-turnover-detail
+  <app-turnover-detail *ngIf="turnoverMonth"
     title="month"
     boughtForSek="{{turnoverMonth.boughtForSek}}"
     soldForSek="{{turnoverMonth.soldForSek}}">
   </app-turnover-detail>
-  
+
   <p style="color:gray">
 
     <font size="-1">

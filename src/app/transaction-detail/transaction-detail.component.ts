@@ -23,7 +23,6 @@ export class TransactionDetailComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.purchaseValueSek);
   }
 
 }

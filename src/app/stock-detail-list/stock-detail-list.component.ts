@@ -14,8 +14,8 @@ export class StockDetailListComponent implements OnInit {
   private tradingPalRestClient: TradingPalRestClient;
   private stocksToBuy: StocksToTrade = new StocksToTrade();
   private stocksToSell: StocksToTrade = new StocksToTrade();
-  private transactionsToday: Transactions[] = null;
-  private transactionsYesterday: Transactions[] = null;
+  public transactionsToday: Transactions[] = [];
+  public transactionsYesterday: Transactions[] = [];
   private turnoverToday: Turnover;
   private turnoverWeek: Turnover;
   private turnoverMonth: Turnover;

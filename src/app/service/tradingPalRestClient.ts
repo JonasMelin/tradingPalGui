@@ -9,6 +9,11 @@ import {SubmitStockUpdate} from '../model/SubmitStockUpdate';
 export class TradingPalRestClient {
   constructor(private httpClient: HttpClient) {
   }
+
+  getDevelopment(daysBack: number): Observable<any> {
+    return this.httpClient.get('storage/tradingpalstorage/getDevelopmentSinceDaysBack?daysback=' + daysBack);
+  }
+
   getTurnover(daysBack: number): Observable<any> {
     return this.httpClient.get('storage/tradingpalstorage/getTurnoverLastDays?daysback=' + daysBack);
   }

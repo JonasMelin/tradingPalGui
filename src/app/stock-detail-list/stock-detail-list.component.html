@@ -1,5 +1,15 @@
 <div>
 
+  <p>
+    Today:
+    <i *ngIf="developmentToday >= 0.0" style="color:blue">
+      {{developmentToday | number : '1.2-2'}}%
+    </i>
+    <i *ngIf="developmentToday < 0.0" style="color:red">
+      {{developmentToday | number : '1.2-2'}}%
+    </i>
+  </p>
+
   <p *ngFor="let stockTradeInfo of stocksToBuy.list">
     <app-stock-details
       currancy="{{stockTradeInfo.currancy}}"

@@ -20,6 +20,7 @@ export class StockDetailListComponent implements OnInit {
   private turnoverWeek: Turnover;
   private turnoverMonth: Turnover;
   private developmentToday: number;
+  private developmentSinceStart: number;
   private timeoutCounter = 100;
   private timeoutNormalIntervalSec = 30;
   private lastUpdateVersionBuy = 0;
@@ -44,6 +45,7 @@ export class StockDetailListComponent implements OnInit {
         this.getTurnOverWeek();
         this.getTurnOverMonth();
         this.getDevelopmentToday();
+        this.getDevelopmentSinceStart();
       } else {
         this.timeoutCounter ++;
       }
@@ -54,10 +56,15 @@ export class StockDetailListComponent implements OnInit {
     }
   }
 
+  getDevelopmentSinceStart() {
+    this.tradingPalRestClient.getDevelopmentSinceStart().subscribe(retData => {
+      this.developmentSinceStart = retData.retval;
+    });
+  }
+
   getDevelopmentToday() {
     this.tradingPalRestClient.getDevelopment(1).subscribe(retData => {
       this.developmentToday = retData.retval;
-      console.log(retData);
     });
   }
 

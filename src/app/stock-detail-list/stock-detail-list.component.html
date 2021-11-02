@@ -1,7 +1,7 @@
 <div>
 
   <p>
-    Today:
+    Development today:
     <i *ngIf="developmentToday >= 0.0" style="color:blue">
       {{developmentToday | number : '1.2-2'}}%
     </i>
@@ -47,7 +47,7 @@
   </p>
 
   <hr *ngIf="transactionsToday && transactionsToday.length != 0">
-  <i *ngIf="transactionsToday && transactionsToday.length != 0"> Transactions Today</i><br>
+  <i *ngIf="transactionsToday && transactionsToday.length != 0"> Transactions today</i><br>
   <p *ngFor="let transaction of transactionsToday">
     <app-transaction-detail
       name="{{transaction.name}}"
@@ -65,7 +65,7 @@
   </p>
 
   <hr *ngIf="transactionsYesterday && transactionsYesterday.length != 0">
-  <i *ngIf="transactionsYesterday && transactionsYesterday.length != 0"> Yesterday</i><br>
+  <i *ngIf="transactionsYesterday && transactionsYesterday.length != 0"> Transactions yesterday</i><br>
   <p *ngFor="let transaction of transactionsYesterday">
     <app-transaction-detail
       name="{{transaction.name}}"
@@ -106,6 +106,7 @@
 
     <font size="-1">
       updated       : {{stocksToBuy.updatedUtc}} <br>
+      sinceStart (2021-10-28):     {{developmentSinceStart | number : '1.2-2'}}%<br>
       successCounter: {{stocksToBuy.successCounter}} <br>
       skippedCounter: {{stocksToBuy.skippedCounter}} <br>
       failCounter:    {{stocksToBuy.failCounter}} <br>

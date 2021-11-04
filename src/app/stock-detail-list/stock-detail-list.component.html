@@ -102,12 +102,21 @@
     soldForSek="{{turnoverMonth.soldForSek}}">
   </app-turnover-detail>
 
+  <font size="-2">
+    <br>
+    <i  style="color:gray">sinceStart (2021-10-28):
+      <i *ngIf="developmentSinceStart >= 0.0" style="color:blue">    {{developmentSinceStart | number : '1.2-2'}}%</i>
+      <i *ngIf="developmentSinceStart < 0.0" style="color:red">    {{developmentSinceStart | number : '1.2-2'}}%</i></i>
+    <br>
+      <i style="color:gray">tpIndex (2021-10-28):
+        <i *ngIf="tpIndex >= 0.0" style="color:blue">   {{tpIndex | number : '1.2-2'}}% </i>
+        <i *ngIf="tpIndex < 0.0" style="color:red">   {{tpIndex | number : '1.2-2'}}% </i></i>
+  </font>
+
   <p style="color:gray">
 
     <font size="-1">
       updated       : {{stocksToBuy.updatedUtc}} <br>
-      sinceStart (2021-10-28):     {{developmentSinceStart | number : '1.2-2'}}%<br>
-      tpIndex (2021-10-28):     {{tpIndex | number : '1.4-4'}}%<br>
       successCounter: {{stocksToBuy.successCounter}} <br>
       skippedCounter: {{stocksToBuy.skippedCounter}} <br>
       failCounter:    {{stocksToBuy.failCounter}} <br>

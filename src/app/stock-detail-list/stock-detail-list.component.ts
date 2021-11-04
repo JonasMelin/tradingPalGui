@@ -20,8 +20,10 @@ export class StockDetailListComponent implements OnInit {
   private turnoverWeek: Turnover;
   private turnoverMonth: Turnover;
   private developmentToday: number;
+  private developmentTodayBefore: 0.0;
   private developmentSinceStart: number;
   private tpIndex: number;
+  private tpIndexBefore: 0.0;
   private timeoutCounter = 100;
   private timeoutNormalIntervalSec = 30;
   private lastUpdateVersionBuy = 0;

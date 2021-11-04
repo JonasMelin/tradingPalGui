@@ -19,11 +19,12 @@ export class StockDetailListComponent implements OnInit {
   private turnoverToday: Turnover;
   private turnoverWeek: Turnover;
   private turnoverMonth: Turnover;
-  private developmentToday: number;
-  private developmentTodayBefore: 0.0;
-  private developmentSinceStart: number;
-  private tpIndex: number;
-  private tpIndexBefore: 0.0;
+  private developmentToday = 0.0;
+  private developmentTodayTrend = 0;
+  private developmentSinceStart = 0;
+  private developmentSinceStartTrend = 0;
+  private tpIndex = 0.0;
+  private tpIndexTrend = 0;
   private timeoutCounter = 100;
   private timeoutNormalIntervalSec = 30;
   private lastUpdateVersionBuy = 0;
@@ -62,18 +63,33 @@ export class StockDetailListComponent implements OnInit {
 
   getTpIndex() {
     this.tradingPalRestClient.getTpIndex().subscribe(retData => {
+      if (retData.retval < this.tpIndex) {
+        this.tpIndexTrend = -1;
+      } else if (retData.retval > this.tpIndex) {
+        this.tpIndexTrend = 1;
+      }
       this.tpIndex = retData.retval;
     });
   }
 
   getDevelopmentSinceStart() {
     this.tradingPalRestClient.getDevelopmentSinceStart().subscribe(retData => {
+      if (retData.retval < this.developmentSinceStart) {
+        this.developmentSinceStartTrend = -1;
+      } else if (retData.retval > this.developmentSinceStart) {
+        this.developmentSinceStartTrend = 1;
+      }
       this.developmentSinceStart = retData.retval;
     });
   }
 
   getDevelopmentToday() {
     this.tradingPalRestClient.getDevelopment(1).subscribe(retData => {
+      if (retData.retval < this.developmentToday) {
+        this.developmentTodayTrend = -1;
+      } else if (retData.retval > this.developmentToday) {
+        this.developmentTodayTrend = 1;
+      }
       this.developmentToday = retData.retval;
     });
   }

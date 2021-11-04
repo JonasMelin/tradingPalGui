@@ -5,6 +5,9 @@
     <i *ngIf="developmentToday >= 0.0" style="color:blue">
       {{developmentToday | number : '1.2-2'}}%
     </i>
+    <i *ngIf="developmentTodayTrend == 0"> ➙</i>
+    <i *ngIf="developmentTodayTrend > 0"> ➚</i>
+    <i *ngIf="developmentTodayTrend < 0"> ➘</i>
     <i *ngIf="developmentToday < 0.0" style="color:red">
       {{developmentToday | number : '1.2-2'}}%
     </i>
@@ -106,11 +109,19 @@
     <br>
     <i  style="color:gray">sinceStart (2021-10-28):
       <i *ngIf="developmentSinceStart >= 0.0" style="color:blue">    {{developmentSinceStart | number : '1.2-2'}}%</i>
-      <i *ngIf="developmentSinceStart < 0.0" style="color:red">    {{developmentSinceStart | number : '1.2-2'}}%</i></i>
+      <i *ngIf="developmentSinceStart < 0.0" style="color:red">    {{developmentSinceStart | number : '1.2-2'}}%</i>
+      <i *ngIf="developmentSinceStartTrend == 0"> ➙</i>
+      <i *ngIf="developmentSinceStartTrend > 0"> ➚</i>
+      <i *ngIf="developmentSinceStartTrend < 0"> ➘</i>
+    </i>
     <br>
       <i style="color:gray">tpIndex (2021-10-28):
         <i *ngIf="tpIndex >= 0.0" style="color:blue">   {{tpIndex | number : '1.2-2'}}% </i>
-        <i *ngIf="tpIndex < 0.0" style="color:red">   {{tpIndex | number : '1.2-2'}}% </i></i>
+        <i *ngIf="tpIndex < 0.0" style="color:red">   {{tpIndex | number : '1.2-2'}}% </i>
+        <i *ngIf="tpIndexTrend == 0"> ➙</i>
+        <i *ngIf="tpIndexTrend > 0"> ➚</i>
+        <i *ngIf="tpIndexTrend < 0"> ➘</i>
+      </i>
   </font>
 
   <p style="color:gray">

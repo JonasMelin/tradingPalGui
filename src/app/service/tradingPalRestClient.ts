@@ -10,6 +10,10 @@ export class TradingPalRestClient {
   constructor(private httpClient: HttpClient) {
   }
 
+  getTpIndex(): Observable<any> {
+    return this.httpClient.get('storage/tradingpalstorage/getTpIndex');
+  }
+
   getDevelopmentSinceStart(): Observable<any> {
     return this.httpClient.get('storage/tradingpalstorage/getDevelopmentSinceStart');
   }

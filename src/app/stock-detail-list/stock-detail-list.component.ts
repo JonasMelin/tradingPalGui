@@ -78,7 +78,7 @@ export class StockDetailListComponent implements OnInit {
   getDevelopmentToday() {
     this.tradingPalRestClient.getDevelopment(1).subscribe(retData => {
       this.developmentToday = retData.retval;
-      this.developmentTodayTrend = retData.retval;
+      this.developmentTodayTrend = retData.trend;
     });
   }
 

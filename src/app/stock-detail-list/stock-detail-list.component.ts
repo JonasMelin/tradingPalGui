@@ -63,34 +63,22 @@ export class StockDetailListComponent implements OnInit {
 
   getTpIndex() {
     this.tradingPalRestClient.getTpIndex().subscribe(retData => {
-      if (retData.retval < this.tpIndex) {
-        this.tpIndexTrend = -1;
-      } else if (retData.retval > this.tpIndex) {
-        this.tpIndexTrend = 1;
-      }
       this.tpIndex = retData.retval;
+      this.tpIndexTrend = retData.trend;
     });
   }
 
   getDevelopmentSinceStart() {
     this.tradingPalRestClient.getDevelopmentSinceStart().subscribe(retData => {
-      if (retData.retval < this.developmentSinceStart) {
-        this.developmentSinceStartTrend = -1;
-      } else if (retData.retval > this.developmentSinceStart) {
-        this.developmentSinceStartTrend = 1;
-      }
       this.developmentSinceStart = retData.retval;
+      this.developmentSinceStartTrend = retData.trend;
     });
   }
 
   getDevelopmentToday() {
     this.tradingPalRestClient.getDevelopment(1).subscribe(retData => {
-      if (retData.retval < this.developmentToday) {
-        this.developmentTodayTrend = -1;
-      } else if (retData.retval > this.developmentToday) {
-        this.developmentTodayTrend = 1;
-      }
       this.developmentToday = retData.retval;
+      this.developmentTodayTrend = retData.retval;
     });
   }
 

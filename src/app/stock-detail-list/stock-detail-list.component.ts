@@ -23,8 +23,10 @@ export class StockDetailListComponent implements OnInit {
   private developmentTodayTrend = 0;
   private developmentSinceStart = 0;
   private developmentSinceStartTrend = 0;
-  private tpIndex = 0.0;
+  private tpSIndex = 0.0;
   private tpIndexTrend = 0;
+  private tpYIndex = 0.0;
+  private tpSIndexMonthBased = 0.0;
   private timeoutCounter = 100;
   private timeoutNormalIntervalSec = 30;
   private lastUpdateVersionBuy = 0;
@@ -63,8 +65,10 @@ export class StockDetailListComponent implements OnInit {
 
   getTpIndex() {
     this.tradingPalRestClient.getTpIndex().subscribe(retData => {
-      this.tpIndex = retData.retval;
+      this.tpSIndex = retData.retval;
       this.tpIndexTrend = retData.trend;
+      this.tpSIndexMonthBased = retData.tpIndexByMonth.tpIndexSummed
+      this.tpYIndex = retData.tpIndexByMonth.tpIndexByYear
     });
   }
 

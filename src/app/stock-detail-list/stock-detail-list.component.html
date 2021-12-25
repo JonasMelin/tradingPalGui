@@ -11,7 +11,33 @@
     <i *ngIf="developmentToday < 0.0" style="color:red">
       {{developmentToday | number : '1.2-2'}}%
     </i>
-  </p>
+
+    <font size="-2">
+      <i  style="color:gray"> (since start:
+        <i *ngIf="developmentSinceStart >= 0.0" style="color:blue">    {{developmentSinceStart | number : '1.2-2'}}%</i>
+        <i *ngIf="developmentSinceStart < 0.0" style="color:red">    {{developmentSinceStart | number : '1.2-2'}}%</i>
+        <i *ngIf="developmentSinceStartTrend == 0"> ➙</i>
+        <i *ngIf="developmentSinceStartTrend > 0"> ➚</i>
+        <i *ngIf="developmentSinceStartTrend < 0"> ➘</i> )
+      </i>
+    </font>
+
+    <font size="-2">
+      <br>
+      <i style="color:gray">tpSIndex:
+        <i *ngIf="tpSIndex >= 0.0" style="color:blue">   {{tpSIndex | number : '1.2-2'}}%, </i>
+        <i *ngIf="tpSIndex < 0.0" style="color:red">   {{tpSIndex | number : '1.2-2'}}%, </i>
+      </i>
+      <i style="color:gray">tpSMBIndex:
+        <i *ngIf="tpSIndexMonthBased >= 0.0" style="color:blue">   {{tpSIndexMonthBased | number : '1.2-2'}}% </i>
+        <i *ngIf="tpSIndexMonthBased < 0.0" style="color:red">   {{tpSIndexMonthBased | number : '1.2-2'}}% </i>
+      </i>
+      <i style="color:gray">tpYMBIndex:
+        <i *ngIf="tpYIndex >= 0.0" style="color:blue">   {{tpYIndex | number : '1.2-2'}}% </i>
+        <i *ngIf="tpYIndex < 0.0" style="color:red">   {{tpYIndex | number : '1.2-2'}}% </i>
+      </i>
+    </font>
+    </p>
 
   <p *ngFor="let stockTradeInfo of stocksToBuy.list">
     <app-stock-details
@@ -105,24 +131,7 @@
     soldForSek="{{turnoverMonth.soldForSek}}">
   </app-turnover-detail>
 
-  <font size="-2">
-    <br>
-    <i  style="color:gray">sinceStart (2021-10-28):
-      <i *ngIf="developmentSinceStart >= 0.0" style="color:blue">    {{developmentSinceStart | number : '1.2-2'}}%</i>
-      <i *ngIf="developmentSinceStart < 0.0" style="color:red">    {{developmentSinceStart | number : '1.2-2'}}%</i>
-      <i *ngIf="developmentSinceStartTrend == 0"> ➙</i>
-      <i *ngIf="developmentSinceStartTrend > 0"> ➚</i>
-      <i *ngIf="developmentSinceStartTrend < 0"> ➘</i>
-    </i>
-    <br>
-      <i style="color:gray">tpIndex (2021-10-28):
-        <i *ngIf="tpIndex >= 0.0" style="color:blue">   {{tpIndex | number : '1.2-2'}}% </i>
-        <i *ngIf="tpIndex < 0.0" style="color:red">   {{tpIndex | number : '1.2-2'}}% </i>
-        <i *ngIf="tpIndexTrend == 0"> ➙</i>
-        <i *ngIf="tpIndexTrend > 0"> ➚</i>
-        <i *ngIf="tpIndexTrend < 0"> ➘</i>
-      </i>
-  </font>
+
 
   <p style="color:gray">
 

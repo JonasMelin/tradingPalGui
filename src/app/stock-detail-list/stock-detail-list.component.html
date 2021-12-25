@@ -12,13 +12,14 @@
       {{developmentToday | number : '1.2-2'}}%
     </i>
 
+    <br>
     <font size="-2">
-      <i  style="color:gray"> (since start:
+      <i  style="color:gray"> Development since start:
         <i *ngIf="developmentSinceStart >= 0.0" style="color:blue">    {{developmentSinceStart | number : '1.2-2'}}%</i>
         <i *ngIf="developmentSinceStart < 0.0" style="color:red">    {{developmentSinceStart | number : '1.2-2'}}%</i>
         <i *ngIf="developmentSinceStartTrend == 0"> ➙</i>
         <i *ngIf="developmentSinceStartTrend > 0"> ➚</i>
-        <i *ngIf="developmentSinceStartTrend < 0"> ➘</i> )
+        <i *ngIf="developmentSinceStartTrend < 0"> ➘</i>
       </i>
     </font>
 

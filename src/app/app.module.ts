@@ -9,7 +9,7 @@ import {TradingPalRestClient} from './service/tradingPalRestClient';
 import { StockAllListComponent } from './stock-all-list/stock-all-list.component';
 import { TransactionDetailComponent } from './transaction-detail/transaction-detail.component';
 import { TurnoverDetailComponent } from './turnover-detail/turnover-detail.component';
-
+import { ZingchartAngularModule } from 'zingchart-angular';
 
 @NgModule({
   declarations: [
@@ -23,6 +23,7 @@ import { TurnoverDetailComponent } from './turnover-detail/turnover-detail.compo
   imports: [
     BrowserModule,
     HttpClientModule,
+    ZingchartAngularModule
   ],
   providers: [TradingPalRestClient],
   bootstrap: [AppComponent]

@@ -3,6 +3,7 @@ import { TradingPalRestClient } from '../service/tradingPalRestClient';
 import { StocksToTrade } from '../model/StocksToTrade';
 import {Transactions} from '../model/Transactions';
 import {Turnover} from '../model/Turnover';
+import {element} from 'protractor';
 
 @Component({
   selector: 'app-stock-detail-list',
@@ -24,12 +25,14 @@ export class StockDetailListComponent implements OnInit {
   private developmentSinceStart = 0;
   private developmentSinceStartTrend = 0;
   private tpSIndex = 0.0;
-  private tpIndexTrend = 0;
+  private tpSIndexTrend = 0;
   private tpYIndex = 0.0;
-  private tpSIndexMonthBased = 0.0;
+  private tpSMBIndex = 0.0;
   private timeoutCounter = 100;
   private timeoutNormalIntervalSec = 30;
   private lastUpdateVersionBuy = 0;
+
+  private tpMBIndexes: zingchart.graphset = {};
 
   constructor(private restClient: TradingPalRestClient) {
     this.tradingPalRestClient = restClient;
@@ -66,9 +69,23 @@ export class StockDetailListComponent implements OnInit {
   getTpIndex() {
     this.tradingPalRestClient.getTpIndex().subscribe(retData => {
       this.tpSIndex = retData.retval;
-      this.tpIndexTrend = retData.trend;
-      this.tpSIndexMonthBased = retData.tpIndexByMonth.tpIndexSummed
-      this.tpYIndex = retData.tpIndexByMonth.tpIndexByYear
+      this.tpSIndexTrend = retData.trend;
+      this.tpSMBIndex = retData.tpIndexByMonth.tpIndexSummed;
+      this.tpYIndex = retData.tpIndexByMonth.tpIndexByYear;
+
+      console.log(retData.tpIndexByMonth.monthlyResult);
+
+      let values = [];
+      retData.tpIndexByMonth.monthlyResult.forEach(e => {
+        values.push(e.tpIMonth);
+      });
+
+      this.tpMBIndexes = {
+        type: 'line',
+        series: [{
+          values: values
+        }]
+      };
     });
   }
 

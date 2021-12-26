@@ -8,6 +8,7 @@ import {TradingPalRestClient} from './service/tradingPalRestClient';
 })
 export class AppComponent {
   title = 'TradingPal Management GUI';
+
   private refreshButtonDisabled = false;
 
   tradingPalRestClient: TradingPalRestClient;

@@ -29,7 +29,7 @@
         <i *ngIf="tpSIndex >= 0.0" style="color:blue">   {{tpSIndex | number : '1.2-2'}}%, </i>
         <i *ngIf="tpSIndex < 0.0" style="color:red">   {{tpSIndex | number : '1.2-2'}}%, </i>
       </i>
-      <i style="color:gray">tpSMBIndex:
+      <i style="color:gray">tpMBIndex:
         <i *ngIf="tpSMBIndex >= 0.0" style="color:blue">   {{tpSMBIndex | number : '1.2-2'}}% </i>
         <i *ngIf="tpSMBIndex < 0.0" style="color:red">   {{tpSMBIndex | number : '1.2-2'}}% </i>
       </i>
@@ -113,9 +113,21 @@
   </p>
 
   <hr>
-  <font size="-2">
-  Trading Pal Monthly based index (tpMBindex) 2021-11-28 - today
+  <font size="-3">
+  Trading Pal Monthly based index (tpMBindex) 2021-10-28 - today
   <zingchart-angular [config]="tpMBIndexes" [height]="250" [width]="330"></zingchart-angular>
+  </font>
+
+  <font size="-3">
+    Trading Pal Start index over time (tpSIndex) 2021-10-28 - today
+    <zingchart-angular [config]="tpSIndexesOverTime" [height]="250" [width]="330"></zingchart-angular>
+  </font>
+
+  <font size="-3">
+    Trading Pal correct decisions over time<br>
+    Blue: Correct last transaction
+    Red: Correct last switch
+    <zingchart-angular [config]="switchesOverTime" [height]="250" [width]="330"></zingchart-angular>
   </font>
 
   <app-turnover-detail *ngIf="turnoverToday"

@@ -33,6 +33,8 @@ export class StockDetailListComponent implements OnInit {
   private lastUpdateVersionBuy = 0;
 
   private tpMBIndexes: zingchart.graphset = {};
+  private tpSIndexesOverTime: zingchart.graphset = {};
+  private switchesOverTime: zingchart.graphset = {};
 
   constructor(private restClient: TradingPalRestClient) {
     this.tradingPalRestClient = restClient;
@@ -56,6 +58,7 @@ export class StockDetailListComponent implements OnInit {
         this.getDevelopmentToday();
         this.getDevelopmentSinceStart();
         this.getTpIndex();
+        this.getDailyMetrics();
       } else {
         this.timeoutCounter ++;
       }
@@ -64,6 +67,38 @@ export class StockDetailListComponent implements OnInit {
     } finally {
       setTimeout(this.timeOutCallback.bind(this),  1000);
     }
+  }
+
+  getDailyMetrics() {
+    this.tradingPalRestClient.getDailyMetrics().subscribe(retData => {
+      console.log(retData.retval)
+
+      this.tpSIndexesOverTime = {
+        type: 'line',
+        'scale-y': {
+          format: "%v%",
+        },
+        series: [{
+          values: retData.retval.tpIndex
+        }]
+      };
+
+      this.switchesOverTime = {
+        type: 'line',
+        'scale-y': {
+            values: "0:100:20",
+            format: "%v%",
+        },
+        series: [{
+          values: retData.retval.correctLastTransaction
+        },
+        {
+          values: retData.retval.correctSwitched
+        }]
+      };
+
+
+    })
   }
 
   getTpIndex() {
@@ -82,6 +117,9 @@ export class StockDetailListComponent implements OnInit {
 
       this.tpMBIndexes = {
         type: 'line',
+        'scale-y': {
+          format: "%v%",
+        },
         series: [{
           values: values
         }]

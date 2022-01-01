@@ -2,6 +2,30 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.23.
 
+## Versions and installation
+
+Tested with versions: 
+
+Angular CLI: 8.3.29
+
+Node: 12.22.8
+
+OS: linux x64
+
+Angular: 8.2.14
+
+How to install (with globally installed angular...):
+
+>> curl -fsSL https://deb.nodesource.com/setup_12.x | sudo -E bash -
+
+>> sudo apt-get install nodejs
+
+>> sudo npm install -g @angular/cli
+
+>> npm install
+
+>> ng serve
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.

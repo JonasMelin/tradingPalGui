@@ -10,6 +10,14 @@ export class TradingPalRestClient {
   constructor(private httpClient: HttpClient) {
   }
 
+  avanzaKillSwitch(): Observable<any> {
+    return this.httpClient.get('avanza/tradingpalavanza/killswitch');
+  }
+
+  avanzaBlockPurchase(): Observable<any> {
+      return this.httpClient.get('avanza/tradingpalavanza/blockpurchases');
+    }
+
   getDailyMetrics(): Observable<any> {
     return this.httpClient.get('storage/tradingpalstorage/getDailyMetrics');
   }

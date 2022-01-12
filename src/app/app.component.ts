@@ -26,4 +26,18 @@ export class AppComponent {
       setTimeout(() => { this.refreshButtonDisabled = false; }, 1000);
     });
   }
+
+  avanzaKillSwitch() {
+    console.log('Avanza Kill switch!!')
+    this.tradingPalRestClient.avanzaKillSwitch().subscribe(retData => {
+      console.log("kill switch OK")
+    });
+  }
+
+  avanzaBlockPurchases() {
+      console.log('Avanza block purchases!!')
+      this.tradingPalRestClient.avanzaBlockPurchase().subscribe(retData => {
+        console.log("block purchases OK")
+      });
+    }
 }

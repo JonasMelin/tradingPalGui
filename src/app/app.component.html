@@ -4,6 +4,9 @@
   <div style="text-align:center;background-color:#ffdddd"><font size="+2"> <b>Trading pal</b></font></div>
   <button [disabled]="refreshButtonDisabled" (mouseup)="forceRefresh()">force refresh</button>
   <app-stock-detail-list></app-stock-detail-list>
+<br><br>
+  <button (mouseup)="avanzaKillSwitch()">KILLSWITCH</button>
+  <button (mouseup)="avanzaBlockPurchases()">BLOCK PURCHASES</button>
   <!-- <app-stock-all-list></app-stock-all-list> -->
 
 </div>

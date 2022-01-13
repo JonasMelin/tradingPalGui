@@ -35,9 +35,16 @@ export class AppComponent {
   }
 
   avanzaBlockPurchases() {
-      console.log('Avanza block purchases!!')
-      this.tradingPalRestClient.avanzaBlockPurchase().subscribe(retData => {
-        console.log("block purchases OK")
-      });
-    }
+    console.log('Avanza block purchases!!')
+    this.tradingPalRestClient.avanzaBlockPurchase().subscribe(retData => {
+      console.log("block purchases OK")
+    });
+  }
+
+  avanzaUnblockPurchases() {
+    console.log('Avanza un-block purchases!!')
+    this.tradingPalRestClient.avanzaUnblockPurchase().subscribe(retData => {
+      console.log("un-block purchases OK")
+    });
+  }
 }

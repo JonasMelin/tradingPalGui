@@ -15,8 +15,12 @@ export class TradingPalRestClient {
   }
 
   avanzaBlockPurchase(): Observable<any> {
-      return this.httpClient.get('avanza/tradingpalavanza/blockpurchases');
-    }
+    return this.httpClient.get('avanza/tradingpalavanza/blockpurchases');
+  }
+
+  avanzaUnblockPurchase(): Observable<any> {
+    return this.httpClient.get('avanza/tradingpalavanza/unblockpurchases');
+  }
 
   getDailyMetrics(): Observable<any> {
     return this.httpClient.get('storage/tradingpalstorage/getDailyMetrics');

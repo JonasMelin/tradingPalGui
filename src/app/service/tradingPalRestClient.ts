@@ -26,6 +26,10 @@ export class TradingPalRestClient {
     return this.httpClient.get('storage/tradingpalstorage/getDailyMetrics');
   }
 
+  getSuperscore2(): Observable<any> {
+    return this.httpClient.get('storage/tradingpalstorage/getSuperscore2');
+  }
+
   getTpIndex(): Observable<any> {
     return this.httpClient.get('storage/tradingpalstorage/getTpIndex');
   }

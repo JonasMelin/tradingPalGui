@@ -152,10 +152,11 @@
 
 
   <font size="-1">
-    Development (SEK) per stock compared to skipping tradingpal...
+    Gain values (Total: {{this.gainValue | number : '1.0-0'}} Sek)...
     <br>
   </font>
     <font size="-3">
+
   <i *ngFor="let stockTradeInfo of superScore2List">
     {{stockTradeInfo[0]}}: {{stockTradeInfo[1] | number : '1.0-0'}} /
   </i>

@@ -31,6 +31,7 @@ export class StockDetailListComponent implements OnInit {
   private timeoutCounter = 100;
   private timeoutNormalIntervalSec = 30;
   private lastUpdateVersionBuy = 0;
+  private gainValue = -8999;
   private superScore2List = [];
 
   private tpMBIndexes: zingchart.graphset = {};
@@ -75,6 +76,7 @@ export class StockDetailListComponent implements OnInit {
     this.tradingPalRestClient.getSuperscore2().subscribe(retData => {
       console.log(retData.retval)
       this.superScore2List = retData.retval
+      this.gainValue = retData.gainValue
     })
   }
 

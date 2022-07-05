@@ -7,6 +7,6 @@ RUN apk add --update git
 RUN npm install
 RUN npm run build
 RUN npm audit fix
-RUN npm install -g @angular/cli
+RUN npm install -g @angular/cli@8.3.29
 
 ENTRYPOINT ["ng","serve","--host", "0.0.0.0"]

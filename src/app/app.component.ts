@@ -1,3 +1,4 @@
+import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 import { Component } from '@angular/core';
 import {TradingPalRestClient} from './service/tradingPalRestClient';
 
@@ -17,6 +18,29 @@ export class AppComponent {
     window['tradingpaldata'] = {};
     window['tradingpaldata']['fastRefresh'] = false;
     this.tradingPalRestClient = restClient;
+  }
+
+  addPutinSekToMongo() {
+
+    const additionalPutinSekElement = document.getElementById('addfunds') as HTMLInputElement | null;
+    let additionalPutinSek: number = +(additionalPutinSekElement.value);
+
+    if (additionalPutinSek == null || Number.isNaN(additionalPutinSek) || additionalPutinSek == 0) {
+      alert("Bad format. Use positive or negative integers, not 0")
+      return
+    }
+
+    if (additionalPutinSek > 10000 || additionalPutinSek < -10000) {
+      alert("Value out of range. Use -10000 < x < 10000")
+      return
+    }
+
+    console.log('addPutinSekToMongo... ' + additionalPutinSek) 
+
+    this.tradingPalRestClient.addPutinSekToMongo(additionalPutinSek).subscribe(retData => {
+      console.log("Added funds " + additionalPutinSek)
+      alert("Added funds: " + additionalPutinSek + " (SEK)")
+    });
   }
 
   forceRefresh() {

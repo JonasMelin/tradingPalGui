@@ -10,6 +10,10 @@ export class TradingPalRestClient {
   constructor(private httpClient: HttpClient) {
   }
 
+  addPutinSekToMongo(additionalPutinSek: number): Observable<any> {
+    return this.httpClient.get('storage/tradingpalstorage/addPutinSekToMongo?additionalPutinSek=' + additionalPutinSek);
+  }
+
   avanzaKillSwitch(): Observable<any> {
     return this.httpClient.get('avanza/tradingpalavanza/killswitch');
   }

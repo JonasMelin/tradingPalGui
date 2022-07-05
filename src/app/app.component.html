@@ -4,6 +4,12 @@
   <div style="text-align:center;background-color:#ffdddd"><font size="+2"> <b>Trading pal</b></font></div>
   <button [disabled]="refreshButtonDisabled" (mouseup)="forceRefresh()">force refresh</button>
   <app-stock-detail-list></app-stock-detail-list>
+
+<br>
+  <input type="text" id="addfunds" name="addfunds" class="form-control" [defaultValue]="0" style="width:40px;">  
+  <button (mouseup)="addPutinSekToMongo(0)">Manually added funds</button> (SEK)  
+<br>
+
 <br><br>
   <button (mouseup)="avanzaKillSwitch()">KILLSWITCH</button>
   <br>
